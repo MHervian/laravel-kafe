@@ -75,7 +75,7 @@
                                     class="w-100"
                                     /> -->
                                     <img
-                                    src="{{ asset('uploads/categories/' . $category->photo) }}"
+                                    src="{{ asset('uploads/' . $category->photo) }}"
                                     alt=""
                                     class="w-100"
                                     />
@@ -108,7 +108,6 @@
                 <div class="row">
                     @php $incrementProduct = 0 @endphp
                     @forelse ($products as $product)
-                        @php $photoAsset = asset("uploads/" . $product->galleries->first()->photos); @endphp
                         <div
                         class="col-6 col-md-4 col-lg-3"
                         data-aos="fade-up"
@@ -119,8 +118,8 @@
                                     <div
                                     class="products-image"
                                     style='
-                                        @if($product->galleries)
-                                            background-image: url("{{ $photoAsset }}");
+                                        @if(!empty($product->galleries->first()))
+                                            background-image: url("{{ asset("uploads/" . $product->galleries->first()->photos) }}");
                                         @else
                                             background-color: #eee;
                                         @endif

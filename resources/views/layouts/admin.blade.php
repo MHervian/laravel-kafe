@@ -112,7 +112,7 @@
                       Hi, {{ Auth::user()->name }}
                     </a>
                     <div class="dropdown-menu">
-                      <a href="#" class="dropdown-item">Logout</a>
+                      <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
                     </div>
                   </li>
                 </ul>

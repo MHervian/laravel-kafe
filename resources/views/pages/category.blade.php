@@ -30,7 +30,7 @@
                             class="w-100"
                             /> -->
                             <img
-                              src="{{ asset('uploads/categories/' . $category->photo) }}"
+                              src="{{ asset('uploads/' . $category->photo) }}"
                               alt=""
                               class="w-100"
                             />
@@ -61,7 +61,6 @@
           <div class="row">
             @php $incrementProduct = 0 @endphp
             @forelse ($products as $product)
-              @php $photoPath = asset('uploads/' . $product->galleries->first()->photos) @endphp
                 <div
                     class="col-6 col-md-4 col-lg-3"
                     data-aos="fade-up"
@@ -71,14 +70,14 @@
                         <div class="products-thumbnail">
                             <div
                             class="products-image"
-                            style="
+                            style='
                                 @if($product->galleries->count())
-                                    /* background-image: url('{{ Storage::url($product->galleries->first()->photos) }}') */
-                                    background-image: url('{{ $photoPath }}');
+                                    /* background-image: url("{{ asset("uploads/" . $product->galleries->first()->photos) }}") */
+                                    background-image: url("{{ asset("uploads/" . $product->galleries->first()->photos) }}");
                                 @else
                                     background-color: #eee
                                 @endif
-                            "
+                            '
                             ></div>
                         </div>
                         <div class="products-text">

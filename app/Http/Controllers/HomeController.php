@@ -20,12 +20,6 @@ class HomeController extends Controller
         $categories = Category::take(6)->get();
         $products = Product::with('galleries')->take(8)->get();
 
-        // foreach ($products as $product) {
-        //     echo "<pre>";
-        //     var_dump($product->galleries->first()->photos);
-        //     echo "</pre><br><br>";
-        // }   
-
         return view('pages.home',[
             'categories' => $categories,
             'products' => $products
