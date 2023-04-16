@@ -29,11 +29,15 @@
                     class="w-100 mb-3"
                     alt=""
                   /> -->
+                  @if (!empty($transaction->product->galleries->first()))
                   <img
                     src="{{ asset('uploads/' . $transaction->product->galleries->first()->photos ?? '') }}"
                     class="w-100 mb-3"
                     alt=""
                   />
+                  @else
+                  <span class="d-block" style="background-color: lightgrey; width: 100%; height: 100%;"></span>
+                  @endif
                 </div>
                 <div class="col-12 col-md-8">
                   <div class="row">

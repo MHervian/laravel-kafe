@@ -16,6 +16,14 @@ class CartController extends Controller
     public function index()
     {
         $carts = Cart::with(['product.galleries', 'user'])->where('users_id', Auth::user()->id)->get();
+
+        // foreach($carts as $cart) {
+        //     echo "<pre>";
+        //     var_dump($cart->product->galleries->first());
+        //     echo "</pre>";
+        //     echo "========================================<br><br>";
+        // }
+        // return;
         
         return view('pages.cart',[
             'carts' => $carts

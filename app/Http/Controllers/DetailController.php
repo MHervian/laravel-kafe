@@ -28,7 +28,8 @@ class DetailController extends Controller
     {
         $data = [
             'products_id' => $id,
-            'users_id' => Auth::user()->id
+            'users_id' => Auth::user()->id,
+            'amount' => $request->amount,
         ];
 
         Cart::create($data);

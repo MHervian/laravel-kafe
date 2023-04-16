@@ -74,19 +74,36 @@
               <div class="col-lg-8">
                 <h1>{{ $product->name }}</h1>
                 <div class="owner">By {{ $product->user->store_name }}</div>
-                <div class="price">${{ number_format($product->price) }}</div>
+                <div class="price">RP{{ number_format($product->price) }}</div>
               </div>
               <div class="col-lg-2" data-aos="zoom-in">
                 @auth
+                    <p class="m-0">Jumlah Stok</p>
+                    @php
+                    $status_stock = 'text-danger';
+                    $status_btn = 'disabled';
+                    if ($product->stock > 0) { 
+                      $status_stock = 'text-success';
+                      $status_btn = null;
+                    }
+                    @endphp
+                    <p class="{{ $status_stock }} display-4">{{ $product->stock }}</p>
                     <form action="{{ route('detail-add', $product->id) }}" method="POST" enctype="multipart/form-data">
                       @csrf
+                      <input type="hidden" name="stock" value="{{ $product->stock }}" />
+                      <div class="form-group">
+                        <label for="amount">Jumlah Pesan</label>
+                        <input type="number" min="1" max="{{ $product->stock }}" name="amount" id="amount" class="form-control" placeholder="0" required/>
+                      </div>
                       <button
                         type="submit"
                         class="btn btn-success px-4 text-white btn-block mb-3"
+                        {{ $status_btn }}
                       >
                         Add to Cart
                       </button>
                     </form>
+                    <p class="font-italic">Barang yang sudah dipesan tidak dapat dibatalkan.</p>
                 @else
                     <a
                       href="{{ route('login') }}"

@@ -12,7 +12,8 @@ class TransactionDetail extends Model
         'price',
         'shipping_status',
         'resi',
-        'code'
+        'code',
+        'amount'
     ];
 
     protected $hidden = [

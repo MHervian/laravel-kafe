@@ -63,12 +63,23 @@
             >
               Users
             </a>
-            <a
+            <!-- <a
               href="/index.html"
               class="list-group-item list-group-item-action"
             >
               Sign Out
+            </a> -->
+            <a
+               href="{{ route('logout') }}"
+               onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();"
+               class="list-group-item list-group-item-action"
+            >
+              Sign Out
             </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
           </div>
         </div>
 
@@ -111,8 +122,17 @@
                       />
                       Hi, {{ Auth::user()->name }}
                     </a>
+                    <!-- <div class="dropdown-menu">
+                      <a href="#" class="dropdown-item">Logout</a>
+                    </div> -->
                     <div class="dropdown-menu">
-                      <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                               Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                        </form>
                     </div>
                   </li>
                 </ul>

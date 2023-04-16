@@ -50,7 +50,8 @@ class CheckoutController extends Controller
                 'price' => $cart->product->price,
                 'shipping_status' => 'PENDING',
                 'resi' => '',
-                'code' => $trx
+                'code' => $trx,
+                'amount' => $cart->amount,
             ]);
         }
 

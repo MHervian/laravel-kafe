@@ -40,6 +40,7 @@
                     <td>Image</td>
                     <td>Name &amp; Seller</td>
                     <td>Price</td>
+                    <td>Amount</td>
                     <td>Menu</td>
                   </tr>
                 </thead>
@@ -48,21 +49,29 @@
                   @foreach ($carts as $cart)
                     <tr>
                       <td style="width: 20%;">
-                        @if($cart->product->galleries)
+                        @if(!empty($cart->product->galleries->first()))
                           <img
-                            src="{{ Storage::url($cart->product->galleries->first()->photos) }}"
+                            src="{{ asset('uploads/' . $cart->product->galleries->first()->photos) }}"
                             alt=""
                             class="cart-image"
                           />
+                        @else
+                          <span class="cart-image"
+                            style="display: block; background-color: lightgray; width: 90px; height: 90px;"
+                          ></span>
                         @endif
                       </td>
-                      <td style="width: 35%;">
+                      <td style="width: 20%;">
                         <div class="product-title">{{ $cart->product->name }}</div>
                         <div class="product-subtitle">by {{ $cart->product->user->store_name }}</div>
                       </td>
-                      <td style="width: 35%;">
+                      <td style="width: 20%;">
                         <div class="product-title">RP{{ number_format($cart->product->price) }}</div>
                         <div class="product-subtitle">IDR</div>
+                      </td>
+                      <td style="width: 20%;">
+                        <div class="product-title">{{ $cart->amount }}</div>
+                        <div class="product-subtitle">Order(s)</div>
                       </td>
                       <td style="width: 20%;">
                         <form action="{{ route('cart-delete', $cart->products_id) }}" method="POST">
@@ -74,7 +83,7 @@
                         </form>
                       </td>
                     </tr>
-                    @php $totalPrice += $cart->product->price @endphp
+                    @php $totalPrice += ($cart->product->price * $cart->amount) @endphp
                   @endforeach
                 </tbody>
               </table>
@@ -125,6 +134,7 @@
                     id="pemesan"
                     name="pemesan"
                     placeholder="ex: Alfian"
+                    required
                   />
                 </div>
               </div>
@@ -137,6 +147,7 @@
                     id="email_pemesan"
                     name="email_pemesan"
                     placeholder="ex: alfian@gmail.com"
+                    required
                   />
                 </div>
               </div>
@@ -149,6 +160,7 @@
                     id="no_meja"
                     name="no_meja"
                     placeholder="ex: 23"
+                    required
                   />
                 </div>
               </div>

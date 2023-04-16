@@ -45,7 +45,7 @@
                       <label>Pemilik Product</label>
                       <select name="users_id" class="form-control">
                         @foreach ($users as $user)
-                          <option value="{{ $user->id }}">{{ $user->name }}</option>
+                          @if ($user->roles === 'ADMIN') <option value="{{ $user->id }}">{{ $user->name }}</option>' @endif
                         @endforeach
                       </select>
                     </div>
@@ -64,6 +64,12 @@
                     <div class="form-group">
                       <label>Harga</label>
                       <input type="number" class="form-control" name="price" required />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Stok Barang</label>
+                      <input type="number" class="form-control" name="stock" required />
                     </div>
                   </div>
                   <div class="col-md-12">

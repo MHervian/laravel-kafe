@@ -30,7 +30,6 @@ trait RegistersUsers
     public function register(Request $request)
     {
         // echo "Dari laravel\ui\auth-backend\RegistersUsers\\register()<br>";
-        // return;
         // echo "masuk validator<br>";
         $this->validator($request->all())->validate();
 

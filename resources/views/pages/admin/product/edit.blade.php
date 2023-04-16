@@ -48,7 +48,7 @@
                         <option value="{{ $item->users_id }}">{{ $item->user->name }}</option>
                         <option value="" disabled>----------------</option>
                         @foreach ($users as $user)
-                          <option value="{{ $user->id }}">{{ $user->name }}</option>
+                          @if ($user->roles === 'ADMIN') <option value="{{ $user->id }}">{{ $user->name }}</option> @endif
                         @endforeach
                       </select>
                     </div>
@@ -69,6 +69,12 @@
                     <div class="form-group">
                       <label>Harga</label>
                       <input type="number" class="form-control" name="price" value="{{ $item->price }}" required />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Stok Barang</label>
+                      <input type="number" class="form-control" name="stock" value="{{ $item->stock }}" required />
                     </div>
                   </div>
                   <div class="col-md-12">

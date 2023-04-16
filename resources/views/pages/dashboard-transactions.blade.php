@@ -111,17 +111,39 @@
                     <div class="card-body">
                       <div class="row">
                         <div class="col-md-1">
+                          @if (!empty($transaction->product->galleries->first()))
                           <img
                             src="{{ asset('uploads/'.$transaction->product->galleries->first()->photos ?? '') }}"
                             class="w-50"
                           />
+                          @else 
+                          <span class="cart-image"
+                            style="display: block; background-color: lightgray; width: 50px; height: 50px;"
+                          ></span>
+                          @endif
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                           {{ $transaction->product->name }}
                         </div>
+                        <div class="col-md-2">
+                          {{ $transaction->amount }} Order(s)
+                        </div>
+                        <div class="col-md-2">
+                          @if ($transaction->shipping_status === 'SUCCESS') 
+                            <span class="text-success">{{ $transaction->shipping_status }}</span>
+                          @elseif ($transaction->shipping_status === 'COOKING') 
+                            <span class="text-primary">{{ $transaction->shipping_status }}</span>
+                          @else 
+                            <span class="text-danger">{{ $transaction->shipping_status }}</span>
+                          @endif
+                        </div>
+                        
+                        {{--
                         <div class="col-md-3">
                           {{ $transaction->product->user->store_name }}
                         </div>
+                        --}}
+
                         <div class="col-md-3">
                           {{ $transaction->created_at }}
                         </div>
