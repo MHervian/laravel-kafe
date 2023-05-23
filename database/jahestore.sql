@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 11, 2023 at 05:58 AM
--- Server version: 8.0.32-0ubuntu0.22.04.2
+-- Generation Time: May 21, 2023 at 11:18 PM
+-- Server version: 8.0.33-0ubuntu0.22.04.2
 -- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -33,7 +33,8 @@ CREATE TABLE `carts` (
   `products_id` int NOT NULL,
   `users_id` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `amount` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -96345,19 +96346,21 @@ CREATE TABLE `products` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `stock` int DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `users_id`, `categories_id`, `price`, `description`, `deleted_at`, `created_at`, `updated_at`, `slug`) VALUES
-(1, 'Minuman 1', 1, 2, 30000, '<p>Ini adalah minuman ya, yang bernomor 1.</p>', NULL, '2023-04-02 07:14:34', '2023-04-02 07:14:34', 'minuman-1'),
-(2, 'Minuman 2', 1, 2, 90000, '<p>Ini adalah minuman yang ke 2</p>', NULL, '2023-04-02 07:20:26', '2023-04-02 07:20:26', 'minuman-2'),
-(3, 'Minuman 3', 1, 2, 35000, '<p>Ini adlaah minuman yang ke-3</p>', NULL, '2023-04-02 07:21:38', '2023-04-02 07:21:38', 'minuman-3'),
-(4, 'Makanan 1', 1, 1, 43000, '<p>Ini adalah makanan yang ke 1</p>', NULL, '2023-04-02 07:22:12', '2023-04-02 07:22:12', 'makanan-1'),
-(5, 'Donat', 1, 3, 12000, '<p>Beli donat seharga Rp12000 saja!!!</p>', NULL, '2023-04-10 08:06:06', '2023-04-10 08:06:06', 'donat');
+INSERT INTO `products` (`id`, `name`, `users_id`, `categories_id`, `price`, `description`, `deleted_at`, `created_at`, `updated_at`, `slug`, `stock`) VALUES
+(1, 'Minuman 1', 1, 2, 30000, '<p>Ini adalah minuman ya, yang bernomor 1.</p>', NULL, '2023-04-02 07:14:34', '2023-04-15 23:05:46', 'minuman-1', 45),
+(2, 'Minuman 2', 1, 2, 90000, '<p>Ini adalah minuman yang ke 2</p>', NULL, '2023-04-02 07:20:26', '2023-04-15 23:05:54', 'minuman-2', 77),
+(3, 'Minuman 3', 1, 2, 7000, '<p>Ini adlaah minuman yang ke-3</p>', NULL, '2023-04-02 07:21:38', '2023-04-15 23:06:11', 'minuman-3', 90),
+(4, 'Makanan 1', 1, 1, 43000, '<p>Ini adalah makanan yang ke 1</p>', NULL, '2023-04-02 07:22:12', '2023-04-15 23:06:21', 'makanan-1', 78),
+(5, 'Donat', 1, 3, 2000, '<p>Beli donat seharga Rp12000 saja!!!</p>', NULL, '2023-04-10 08:06:06', '2023-04-15 20:22:10', 'donat', 120),
+(6, 'testing', 1, 2, 2000, 'lorem ipsum dolor sit amet', NULL, '2023-04-22 08:45:12', '2023-04-22 08:45:12', 'testing', 230);
 
 -- --------------------------------------------------------
 
@@ -96410,13 +96413,14 @@ CREATE TABLE `transactions` (
 --
 
 INSERT INTO `transactions` (`id`, `users_id`, `inscurance_price`, `shipping_price`, `total_price`, `transaction_status`, `deleted_at`, `created_at`, `updated_at`, `code`, `no_meja`) VALUES
-(3, 2, 0, 0, 125000, 'PENDING', NULL, '2023-04-05 14:50:57', '2023-04-05 14:50:57', 'STORE-2460', ''),
-(4, 2, 0, 0, 43000, 'PENDING', NULL, '2023-04-05 15:02:25', '2023-04-05 15:02:25', 'STORE-4319', ''),
-(5, 2, 0, 0, 30000, 'PENDING', NULL, '2023-04-07 11:14:57', '2023-04-07 11:14:57', 'STORE-4993', ''),
-(6, 3, 0, 0, 73000, 'PENDING', NULL, '2023-04-08 02:47:50', '2023-04-08 02:47:50', 'STORE-6529', ''),
-(7, 2, 0, 0, 30000, 'PENDING', NULL, '2023-04-08 07:36:34', '2023-04-08 07:36:34', 'STORE-1260', '334'),
-(8, 2, 0, 0, 90000, 'PENDING', NULL, '2023-04-10 09:24:35', '2023-04-10 09:24:35', 'STORE-5457', '234'),
-(9, 2, 0, 0, 90000, 'PENDING', NULL, '2023-04-10 09:27:32', '2023-04-10 09:27:32', 'STORE-3272', '234');
+(3, 2, 0, 0, 125000, 'SUCCESS', NULL, '2023-04-05 14:50:57', '2023-04-22 08:46:45', 'STORE-2460', ''),
+(4, 2, 0, 0, 43000, 'SUCCESS', NULL, '2023-04-05 15:02:25', '2023-04-22 08:46:53', 'STORE-4319', ''),
+(5, 2, 0, 0, 30000, 'SUCCESS', NULL, '2023-04-07 11:14:57', '2023-04-22 08:47:02', 'STORE-4993', ''),
+(6, 3, 0, 0, 73000, 'SUCCESS', NULL, '2023-04-08 02:47:50', '2023-04-22 08:47:11', 'STORE-6529', ''),
+(7, 2, 0, 0, 30000, 'SUCCESS', NULL, '2023-04-08 07:36:34', '2023-04-22 08:47:19', 'STORE-1260', '334'),
+(8, 2, 0, 0, 90000, 'SUCCESS', NULL, '2023-04-10 09:24:35', '2023-04-22 08:47:27', 'STORE-5457', '234'),
+(9, 2, 0, 0, 90000, 'SUCCESS', NULL, '2023-04-10 09:27:32', '2023-04-22 08:47:34', 'STORE-3272', '234'),
+(10, 2, 0, 0, 64000, 'SUCCESS', NULL, '2023-04-15 23:32:01', '2023-04-22 08:46:32', 'STORE-8158', '34');
 
 -- --------------------------------------------------------
 
@@ -96433,23 +96437,26 @@ CREATE TABLE `transaction_details` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `shipping_status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `resi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amount` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `transaction_details`
 --
 
-INSERT INTO `transaction_details` (`id`, `transactions_id`, `products_id`, `price`, `created_at`, `updated_at`, `shipping_status`, `resi`, `code`) VALUES
-(5, 3, 2, 90000, '2023-04-05 14:50:57', '2023-04-05 14:51:44', 'SUCCESS', '', 'TRX-4347'),
-(6, 3, 3, 35000, '2023-04-05 14:50:57', '2023-04-08 02:44:05', 'SUCCESS', '', 'TRX-2704'),
-(7, 4, 4, 43000, '2023-04-05 15:02:25', '2023-04-05 15:21:37', 'SUCCESS', 'loremipsum', 'TRX-1520'),
-(8, 5, 1, 30000, '2023-04-07 11:14:57', '2023-04-07 11:14:57', 'PENDING', '', 'TRX-1124'),
-(9, 6, 4, 43000, '2023-04-08 02:47:50', '2023-04-08 02:47:50', 'PENDING', '', 'TRX-2652'),
-(10, 6, 1, 30000, '2023-04-08 02:47:50', '2023-04-08 02:47:50', 'PENDING', '', 'TRX-6274'),
-(11, 7, 1, 30000, '2023-04-08 07:36:34', '2023-04-08 20:28:48', 'SUCCESS', '', 'TRX-4277'),
-(12, 8, 2, 90000, '2023-04-10 09:24:35', '2023-04-10 09:24:35', 'PENDING', '', 'TRX-1286'),
-(13, 9, 2, 90000, '2023-04-10 09:27:32', '2023-04-10 09:27:32', 'PENDING', '', 'TRX-847');
+INSERT INTO `transaction_details` (`id`, `transactions_id`, `products_id`, `price`, `created_at`, `updated_at`, `shipping_status`, `resi`, `code`, `amount`) VALUES
+(5, 3, 2, 90000, '2023-04-05 14:50:57', '2023-04-05 14:51:44', 'SUCCESS', '', 'TRX-4347', 0),
+(6, 3, 3, 35000, '2023-04-05 14:50:57', '2023-04-08 02:44:05', 'SUCCESS', '', 'TRX-2704', 0),
+(7, 4, 4, 43000, '2023-04-05 15:02:25', '2023-04-05 15:21:37', 'SUCCESS', 'loremipsum', 'TRX-1520', 0),
+(8, 5, 1, 30000, '2023-04-07 11:14:57', '2023-04-07 11:14:57', 'PENDING', '', 'TRX-1124', 0),
+(9, 6, 4, 43000, '2023-04-08 02:47:50', '2023-04-08 02:47:50', 'PENDING', '', 'TRX-2652', 0),
+(10, 6, 1, 30000, '2023-04-08 02:47:50', '2023-04-08 02:47:50', 'PENDING', '', 'TRX-6274', 0),
+(11, 7, 1, 30000, '2023-04-08 07:36:34', '2023-04-08 20:28:48', 'SUCCESS', '', 'TRX-4277', 0),
+(12, 8, 2, 90000, '2023-04-10 09:24:35', '2023-04-10 09:24:35', 'PENDING', '', 'TRX-1286', 0),
+(13, 9, 2, 90000, '2023-04-10 09:27:32', '2023-04-10 09:27:32', 'PENDING', '', 'TRX-847', 0),
+(14, 10, 5, 2000, '2023-04-15 23:32:01', '2023-04-15 23:49:37', 'COOKING', '', 'TRX-1096', 2),
+(15, 10, 1, 30000, '2023-04-15 23:32:01', '2023-04-15 23:32:01', 'PENDING', '', 'TRX-5728', 2);
 
 -- --------------------------------------------------------
 
@@ -96488,7 +96495,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `ad
 (1, 'admin', 'admin@admin.com', NULL, '$2y$10$S944kSRRQXWKH2HoITYrWevDJ6ZrlfEe6GfgAumOCK13.rLvWiPuu', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Kafe F&B', NULL, 1, NULL, NULL, '2023-04-02 02:25:08', '2023-04-08 02:43:35', 'ADMIN'),
 (2, 'makan', 'makan@makan.com', NULL, '$2y$10$.rQxpyIIW2PaBJYomA72dO6855LgoY3zlaCUtm64Tff3VHiMt1DiW', 'Setra Duta Cemara', 'Blok B2 No. 34', 31, 3173, 40512, 'Indonesia', '+628 2020 11111', '', NULL, 1, NULL, NULL, '2023-04-02 02:28:03', '2023-04-05 15:01:41', 'USER'),
 (3, 'Loremipsum', 'loremipsum@loremipsum.com', NULL, '$2y$10$Z.PesWnlkG4PA0q3cZZXgOp9Vmm5q8IiBNQRbnsPihdaYgtrziEie', 'Setra Duta Cemara', 'Blok B2 No. 34', NULL, NULL, 40512, 'Indonesia', '+628 2020 11111', '', NULL, 1, NULL, NULL, '2023-04-07 10:01:09', '2023-04-08 02:47:50', 'USER'),
-(4, 'cobalagi', 'cobalagi@cobalagi.com', NULL, '$2y$10$gq0rihFFRzRFAYxqLYk6Fukebk3PSiglqY0TyBhS0j4Wk7QDT1MPm', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, 1, NULL, NULL, '2023-04-07 10:03:47', '2023-04-07 10:03:47', 'USER');
+(4, 'cobalagi', 'cobalagi@cobalagi.com', NULL, '$2y$10$gq0rihFFRzRFAYxqLYk6Fukebk3PSiglqY0TyBhS0j4Wk7QDT1MPm', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, 1, NULL, NULL, '2023-04-07 10:03:47', '2023-04-07 10:03:47', 'USER'),
+(5, 'testakun', 'testakun@gmail.com', NULL, '$2y$10$hXgu78imdve7G0Yd3QKT3eLE0rHoo.qKWp6gHkt4NZZhLc8GKp806', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, 0, NULL, NULL, '2023-04-12 15:20:20', '2023-04-12 15:20:20', 'USER');
 
 --
 -- Indexes for dumped tables
@@ -96587,7 +96595,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -96611,7 +96619,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `product_galleries`
@@ -96623,19 +96631,19 @@ ALTER TABLE `product_galleries`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `transaction_details`
 --
 ALTER TABLE `transaction_details`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

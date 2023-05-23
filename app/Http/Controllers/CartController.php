@@ -35,7 +35,7 @@ class CartController extends Controller
         $cart = Cart::findOrFail($id);
 
         $cart->delete();
-
+        
         return redirect()->route('cart');
     }
     

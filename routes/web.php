@@ -28,7 +28,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/cart', 'CartController@index')->name('cart');
     Route::delete('/cart/{id}', 'CartController@delete')->name('cart-delete');
-
+    
     Route::post('/checkout', 'CheckoutController@process')->name('checkout');
 
     Route::get('/dashboard', 'DashboardController@index')

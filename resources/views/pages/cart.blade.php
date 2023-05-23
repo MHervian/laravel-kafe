@@ -18,7 +18,7 @@
               <nav>
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item">
-                    <a href="/index.html">Home</a>
+                    <a href="/">Home</a>
                   </li>
                   <li class="breadcrumb-item active">
                     Cart
@@ -74,8 +74,9 @@
                         <div class="product-subtitle">Order(s)</div>
                       </td>
                       <td style="width: 20%;">
-                        <form action="{{ route('cart-delete', $cart->products_id) }}" method="POST">
-                          @method('DELETE')
+                        <!-- <form action="{{ route('cart-delete', $cart->products_id) }}" method="POST"> -->
+                        <form action="{{ route('cart-delete', $cart->id) }}" method="POST">
+                          @method('delete')
                           @csrf
                           <button class="btn btn-remove-cart" type="submit">
                             Remove
@@ -264,39 +265,39 @@
     <script src="https://unpkg.com/vue-toasted"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-      var locations = new Vue({
-        el: "#locations",
-        mounted() {
-          this.getProvincesData();
-        },
-        data: {
-          provinces: null,
-          regencies: null,
-          provinces_id: null,
-          regencies_id: null,
-        },
-        methods: {
-          getProvincesData() {
-            var self = this;
-            axios.get('{{ route('api-provinces') }}')
-              .then(function (response) {
-                  self.provinces = response.data;
-              })
-          },
-          getRegenciesData() {
-            var self = this;
-            axios.get('{{ url('api/regencies') }}/' + self.provinces_id)
-              .then(function (response) {
-                  self.regencies = response.data;
-              })
-          },
-        },
-        watch: {
-          provinces_id: function (val, oldVal) {
-            this.regencies_id = null;
-            this.getRegenciesData();
-          },
-        }
-      });
+      // var locations = new Vue({
+      //   el: "#locations",
+      //   mounted() {
+      //     this.getProvincesData();
+      //   },
+      //   data: {
+      //     provinces: null,
+      //     regencies: null,
+      //     provinces_id: null,
+      //     regencies_id: null,
+      //   },
+      //   methods: {
+      //     getProvincesData() {
+      //       var self = this;
+      //       axios.get('{{ route('api-provinces') }}')
+      //         .then(function (response) {
+      //             self.provinces = response.data;
+      //         })
+      //     },
+      //     getRegenciesData() {
+      //       var self = this;
+      //       axios.get('{{ url('api/regencies') }}/' + self.provinces_id)
+      //         .then(function (response) {
+      //             self.regencies = response.data;
+      //         })
+      //     },
+      //   },
+      //   watch: {
+      //     provinces_id: function (val, oldVal) {
+      //       this.regencies_id = null;
+      //       this.getRegenciesData();
+      //     },
+      //   }
+      // });
     </script>
 @endpush

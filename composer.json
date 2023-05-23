@@ -19,6 +19,7 @@
         "laravel/ui": "^2.0",
         "midtrans/midtrans-php": "^2.3",
         "parsecsv/php-parsecsv": "1.2",
+        "php-http/message-factory": "^1.1",
         "sentry/sentry-laravel": "1.8.0",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
