@@ -34,6 +34,13 @@ class DetailController extends Controller
 
         Cart::create($data);
 
+        // update stock 
+        $stock = intval($request->stock) - intval($request->amount);
+
+        $product = Product::find($id);
+        $product->stock = $stock;
+        $product->save();
+        
         return redirect()->route('cart');
     }
 }

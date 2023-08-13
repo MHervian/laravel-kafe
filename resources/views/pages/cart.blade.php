@@ -78,6 +78,8 @@
                         <form action="{{ route('cart-delete', $cart->id) }}" method="POST">
                           @method('delete')
                           @csrf
+                          <input type="hidden" name="id_product" value="{{ $cart->product->id }}" />
+                          <input type="hidden" name="amount" value="{{ $cart->amount }}" />
                           <button class="btn btn-remove-cart" type="submit">
                             Remove
                           </button>

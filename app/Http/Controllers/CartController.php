@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
+use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,6 +36,11 @@ class CartController extends Controller
         $cart = Cart::findOrFail($id);
 
         $cart->delete();
+
+        // restore stock back
+        $product = Product::find($request->id_product);
+        $product->stock = intval($product->stock) + intval($request->amount);
+        $product->save();
         
         return redirect()->route('cart');
     }
